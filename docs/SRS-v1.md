@@ -108,7 +108,7 @@ The system shall allow users to view the current state and configuration of any 
 ### 3.4 Rule Configuration and Targeting
 
 **FR-20: Global Toggle Rule**
-The system shall allow a feature flag to be configured as globally enabled or globally disabled.
+The system shall allow a feature flag to be configured as globally enabled or globally disabled(scope).
 
 **FR-21: Percentage Rollout Rule**
 The system shall allow users to configure a rollout percentage for a feature flag.

@@ -1,6 +1,6 @@
 apps/api/mvnw.cmd
 
-./AGENTS.md
+AGENTS.md
+.infisical.json
 
-./.infisical.json
-./.infisical.json.cp
+.codex
