@@ -6,4 +6,6 @@ AGENTS.md
 .codex
 
 .project
-.settings/*
+.settings/
+
+
