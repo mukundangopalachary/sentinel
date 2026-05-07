@@ -28,7 +28,7 @@ class FeatureFlagEvaluatorTest {
   void shouldReturnFallbackWhenSnapshotIsNotUsable() {
     FeatureFlagEvaluator evaluator = new FeatureFlagEvaluator();
 
-    EvaluationResult result = evaluator.evaluate(createRequest(), createSnapshot(false, false));
+    EvaluationResult result = evaluator.evaluate(createRequest(), createSnapshot(false, false, List.of()));
 
     assertFalse(result.enabled());
     assertTrue(result.isFallback());
