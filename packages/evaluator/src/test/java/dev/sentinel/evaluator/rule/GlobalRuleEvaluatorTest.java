@@ -2,6 +2,7 @@ package dev.sentinel.evaluator.rule;
 
 import dev.sentinel.domain.rule.model.FlagRule;
 import dev.sentinel.domain.shared.enums.RuleType;
+import dev.sentinel.evaluator.config.RuleConfigParser;
 import dev.sentinel.domain.shared.valueobject.ApplicationKey;
 import dev.sentinel.domain.shared.valueobject.EnvironmentKey;
 import dev.sentinel.domain.shared.valueobject.FlagKey;
@@ -23,7 +24,7 @@ class GlobalRuleEvaluatorTest {
 
   @Test
   void shouldEnableWhenGlobalRuleConfigIsTrue() {
-    GlobalRuleEvaluator evaluator = new GlobalRuleEvaluator();
+    GlobalRuleEvaluator evaluator = new GlobalRuleEvaluator(new RuleConfigParser());
 
     EvaluationResult result = evaluator.evaluate(createRequest(), createRule("{ \"enabled\": true }"));
 
@@ -33,7 +34,7 @@ class GlobalRuleEvaluatorTest {
 
   @Test
   void shouldDisableWhenGlobalRuleConfigIsFalse() {
-    GlobalRuleEvaluator evaluator = new GlobalRuleEvaluator();
+    GlobalRuleEvaluator evaluator = new GlobalRuleEvaluator(new RuleConfigParser());
 
     EvaluationResult result = evaluator.evaluate(createRequest(), createRule("{ \"enabled\": false }"));
 
@@ -43,7 +44,7 @@ class GlobalRuleEvaluatorTest {
 
   @Test
   void shouldReturnNullForInvalidConfig() {
-    GlobalRuleEvaluator evaluator = new GlobalRuleEvaluator();
+    GlobalRuleEvaluator evaluator = new GlobalRuleEvaluator(new RuleConfigParser());
 
     EvaluationResult result = evaluator.evaluate(createRequest(), createRule("{ \"value\": true }"));
 

@@ -6,6 +6,7 @@ import dev.sentinel.domain.shared.valueobject.ApplicationKey;
 import dev.sentinel.domain.shared.valueobject.EnvironmentKey;
 import dev.sentinel.domain.shared.valueobject.FlagKey;
 import dev.sentinel.domain.shared.valueobject.UserIdentifier;
+import dev.sentinel.evaluator.config.RuleConfigParser;
 import dev.sentinel.evaluator.model.EvaluationRequest;
 import dev.sentinel.evaluator.model.EvaluationResult;
 import dev.sentinel.evaluator.rollout.RolloutCalculator;
@@ -23,7 +24,8 @@ class PercentageRolloutEvaluatorTest {
 
   @Test
   void shouldMatchHundredPercentRollout() {
-    PercentageRolloutEvaluator evaluator = new PercentageRolloutEvaluator(new RolloutCalculator());
+    PercentageRolloutEvaluator evaluator =
+        new PercentageRolloutEvaluator(new RolloutCalculator(), new RuleConfigParser());
 
     EvaluationResult result =
         evaluator.evaluate(createRequest(), createRule("{ \"percentage\": 100 }"));
@@ -34,7 +36,8 @@ class PercentageRolloutEvaluatorTest {
 
   @Test
   void shouldReturnNullForZeroPercentRollout() {
-    PercentageRolloutEvaluator evaluator = new PercentageRolloutEvaluator(new RolloutCalculator());
+    PercentageRolloutEvaluator evaluator =
+        new PercentageRolloutEvaluator(new RolloutCalculator(), new RuleConfigParser());
 
     EvaluationResult result =
         evaluator.evaluate(createRequest(), createRule("{ \"percentage\": 0 }"));
@@ -44,7 +47,8 @@ class PercentageRolloutEvaluatorTest {
 
   @Test
   void shouldReturnNullForInvalidConfig() {
-    PercentageRolloutEvaluator evaluator = new PercentageRolloutEvaluator(new RolloutCalculator());
+    PercentageRolloutEvaluator evaluator =
+        new PercentageRolloutEvaluator(new RolloutCalculator(), new RuleConfigParser());
 
     EvaluationResult result =
         evaluator.evaluate(createRequest(), createRule("{ \"value\": 50 }"));
