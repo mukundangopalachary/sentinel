@@ -1,5 +1,6 @@
 package dev.sentinel.domain.shared.valueobject;
 
+import dev.sentinel.domain.shared.exception.ValidationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,12 +29,12 @@ class EmailTest {
 
   @Test
   void shouldRejectBlankEmail() {
-    assertThrows(IllegalArgumentException.class, () -> new Email("   "));
+    assertThrows(ValidationException.class, () -> new Email("   "));
   }
 
   @Test
   void shouldRejectInvalidEmailFormat() {
-    assertThrows(IllegalArgumentException.class, () -> new Email("not-an-email"));
+    assertThrows(ValidationException.class, () -> new Email("not-an-email"));
   }
 
   @Test

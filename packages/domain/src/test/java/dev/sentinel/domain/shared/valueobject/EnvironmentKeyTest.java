@@ -1,5 +1,6 @@
 package dev.sentinel.domain.shared.valueobject;
 
+import dev.sentinel.domain.shared.exception.ValidationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,12 +29,12 @@ class EnvironmentKeyTest {
 
   @Test
   void shouldRejectBlankEnvironmentKey() {
-    assertThrows(IllegalArgumentException.class, () -> new EnvironmentKey("   "));
+    assertThrows(ValidationException.class, () -> new EnvironmentKey("   "));
   }
 
   @Test
   void shouldRejectInvalidEnvironmentKeyFormat() {
-    assertThrows(IllegalArgumentException.class, () -> new EnvironmentKey("qa_env"));
+    assertThrows(ValidationException.class, () -> new EnvironmentKey("qa_env"));
   }
 
   @Test

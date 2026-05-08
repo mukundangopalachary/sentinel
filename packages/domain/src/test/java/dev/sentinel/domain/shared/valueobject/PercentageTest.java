@@ -1,5 +1,6 @@
 package dev.sentinel.domain.shared.valueobject;
 
+import dev.sentinel.domain.shared.exception.ValidationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,12 +19,12 @@ class PercentageTest {
 
   @Test
   void shouldRejectPercentageBelowZero() {
-    assertThrows(IllegalArgumentException.class, () -> new Percentage(-1));
+    assertThrows(ValidationException.class, () -> new Percentage(-1));
   }
 
   @Test
   void shouldRejectPercentageAboveHundred() {
-    assertThrows(IllegalArgumentException.class, () -> new Percentage(101));
+    assertThrows(ValidationException.class, () -> new Percentage(101));
   }
 
   @Test

@@ -1,5 +1,6 @@
 package dev.sentinel.domain.shared.valueobject;
 
+import dev.sentinel.domain.shared.exception.ValidationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,12 +29,12 @@ class ApplicationKeyTest {
 
   @Test
   void shouldRejectBlankApplicationKey() {
-    assertThrows(IllegalArgumentException.class, () -> new ApplicationKey("   "));
+    assertThrows(ValidationException.class, () -> new ApplicationKey("   "));
   }
 
   @Test
   void shouldRejectInvalidApplicationKeyFormat() {
-    assertThrows(IllegalArgumentException.class, () -> new ApplicationKey("payments_service"));
+    assertThrows(ValidationException.class, () -> new ApplicationKey("payments_service"));
   }
 
   @Test

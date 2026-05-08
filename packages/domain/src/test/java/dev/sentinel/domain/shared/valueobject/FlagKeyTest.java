@@ -1,5 +1,6 @@
 package dev.sentinel.domain.shared.valueobject;
 
+import dev.sentinel.domain.shared.exception.ValidationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,12 +29,12 @@ class FlagKeyTest {
 
   @Test
   void shouldRejectBlankFlagKey() {
-    assertThrows(IllegalArgumentException.class, () -> new FlagKey("   "));
+    assertThrows(ValidationException.class, () -> new FlagKey("   "));
   }
 
   @Test
   void shouldRejectInvalidFlagKeyFormat() {
-    assertThrows(IllegalArgumentException.class, () -> new FlagKey("new_checkout"));
+    assertThrows(ValidationException.class, () -> new FlagKey("new_checkout"));
   }
 
   @Test
