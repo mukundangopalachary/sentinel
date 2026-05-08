@@ -11,7 +11,7 @@ import java.util.Objects;
  * Email addresses are validated against a standard email pattern and automatically normalized
  * to lowercase. This value object enforces validation at construction and is immutable thereafter.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class Email {
   

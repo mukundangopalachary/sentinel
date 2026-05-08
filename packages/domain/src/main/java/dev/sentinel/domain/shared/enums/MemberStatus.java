@@ -6,7 +6,7 @@ package dev.sentinel.domain.shared.enums;
  * MemberStatus represents the lifecycle state of a user's membership in an application.
  * Members transition through these states based on invitations, acceptance, and removal.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public enum MemberStatus {
   /**

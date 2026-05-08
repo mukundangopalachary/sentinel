@@ -15,7 +15,7 @@ import java.util.UUID;
  * <p>Immutability: The id, code, and createdAt fields are immutable. The description
  * can be modified.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class Permission {
 

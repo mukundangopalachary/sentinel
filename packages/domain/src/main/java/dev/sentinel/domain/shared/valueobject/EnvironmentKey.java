@@ -12,7 +12,7 @@ import java.util.Objects;
  * (e.g., "production", "staging-v2"). Keys are case-insensitive and automatically normalized to
  * lowercase. This value object enforces validation at construction and is immutable thereafter.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class EnvironmentKey {
 

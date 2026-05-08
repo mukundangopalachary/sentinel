@@ -15,7 +15,7 @@ import java.util.UUID;
  * <p>Immutability: The id, applicationId, userId, invitedBy, and createdAt fields are
  * immutable. Other fields can be modified through domain methods.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class ApplicationMember {
 

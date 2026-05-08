@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * 
  * <p>This is a value object: equality is based on the key value, not object identity.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class ApplicationKey {
 

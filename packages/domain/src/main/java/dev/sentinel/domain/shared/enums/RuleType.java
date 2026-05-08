@@ -7,7 +7,7 @@ package dev.sentinel.domain.shared.enums;
  * determines how a flag's enabled state is computed for a given user or context.
  * Rules are evaluated in order and the first matching rule determines the flag state.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public enum RuleType {
   /**

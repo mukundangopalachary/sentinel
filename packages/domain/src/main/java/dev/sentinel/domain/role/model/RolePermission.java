@@ -12,7 +12,7 @@ import java.util.UUID;
  * 
  * <p>Immutability: All fields are immutable.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class RolePermission {
 

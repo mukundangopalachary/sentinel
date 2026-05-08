@@ -7,7 +7,7 @@ package dev.sentinel.domain.shared.enums;
  * can be configured and evaluated. Each environment type has specific characteristics and is
  * typically used for flag targeting and rollout strategies.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public enum EnvironmentType {
   /**

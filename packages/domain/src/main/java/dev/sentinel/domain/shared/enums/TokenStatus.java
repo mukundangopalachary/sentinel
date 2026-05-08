@@ -7,7 +7,7 @@ package dev.sentinel.domain.shared.enums;
  * to the feature flag system. Tokens transition through these states based on user actions
  * and time-based events.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public enum TokenStatus {
   /**

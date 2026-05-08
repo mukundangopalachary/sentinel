@@ -7,7 +7,7 @@ package dev.sentinel.domain.shared.exception;
  * an invalid state or perform operations that are not allowed in their current state
  * (e.g., archiving an already archived flag, setting rule ordering in invalid ways, etc.).
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public class InvalidStateTransitionException extends DomainException {
 

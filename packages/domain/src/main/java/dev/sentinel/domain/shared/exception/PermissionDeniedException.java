@@ -7,7 +7,7 @@ package dev.sentinel.domain.shared.exception;
  * they do not have permission to perform (e.g., modifying a flag without EDIT permission,
  * deleting a role without ADMIN permission, etc.).
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public class PermissionDeniedException extends DomainException {
 

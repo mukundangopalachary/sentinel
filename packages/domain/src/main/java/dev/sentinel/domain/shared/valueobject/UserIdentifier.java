@@ -11,7 +11,7 @@ import java.util.Objects;
  * internal user UUIDs). It serves as a foreign key or reference to users in external systems.
  * This value object enforces validation at construction and is immutable thereafter.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class UserIdentifier {
 

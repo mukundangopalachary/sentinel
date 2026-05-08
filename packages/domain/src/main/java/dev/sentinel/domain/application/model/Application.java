@@ -16,7 +16,7 @@ import java.util.UUID;
  * <p>Immutability: The id, key, createdBy, and createdAt fields are immutable. Other fields
  * (name, description, archived, updatedAt) can be modified through domain methods.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class Application {
 

@@ -8,7 +8,7 @@ package dev.sentinel.domain.shared.enums;
  * Each role type carries a fixed set of permissions; custom roles are managed via the Role entity.
  * Roles control what operations members can perform on applications and their resources.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public enum RoleType{
   /**

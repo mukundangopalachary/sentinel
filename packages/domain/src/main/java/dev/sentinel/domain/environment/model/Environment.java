@@ -18,7 +18,7 @@ import java.util.UUID;
  * <p>Immutability: The id, applicationId, key, type, and createdAt fields are immutable.
  * Other fields can be modified through domain methods.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class Environment {
 

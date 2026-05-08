@@ -6,7 +6,7 @@ package dev.sentinel.domain.shared.exception;
  * InvalidRuleConfigurationException is raised when flag rules are configured in an invalid way
  * (e.g., invalid rule type, missing required fields, conflicting conditions, etc.).
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public class InvalidRuleConfigurationException extends DomainException {
 

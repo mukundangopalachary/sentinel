@@ -6,7 +6,7 @@ package dev.sentinel.domain.shared.exception;
  * ValidationException is raised when an input value or operation violates domain constraints
  * (e.g., invalid email format, negative percentage, blank identifier, etc.).
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public class ValidationException extends DomainException {
 

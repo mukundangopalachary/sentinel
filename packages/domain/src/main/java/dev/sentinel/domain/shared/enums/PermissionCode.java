@@ -7,7 +7,7 @@ package dev.sentinel.domain.shared.enums;
  * and controlled at a fine-grained level. Permissions are organized by resource type
  * (APPLICATION, ENVIRONMENT, FLAG, RULE, AUDIT, MEMBER, TOKEN) and operation (READ, CREATE, UPDATE, DELETE).
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public enum PermissionCode {
   /**

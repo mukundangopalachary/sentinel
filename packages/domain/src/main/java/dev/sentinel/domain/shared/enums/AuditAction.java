@@ -7,7 +7,7 @@ package dev.sentinel.domain.shared.enums;
  * Each audit entry captures who performed what action, when, and on which resource,
  * enabling compliance, debugging, and security monitoring.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public enum AuditAction {
   /**

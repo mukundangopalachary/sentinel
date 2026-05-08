@@ -9,7 +9,7 @@ import dev.sentinel.domain.shared.exception.ValidationException;
  * always between 0 and 100 (inclusive). This value object enforces validation at construction
  * and is immutable thereafter.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class Percentage {
 

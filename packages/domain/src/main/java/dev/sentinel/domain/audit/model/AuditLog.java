@@ -17,7 +17,7 @@ import java.util.UUID;
  * <p>Immutability: All fields are immutable as audit logs should never be modified
  * after creation.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class AuditLog {
 

@@ -11,7 +11,7 @@ import java.util.Objects;
  * is never stored; only the hash is kept. This value object enforces validation at construction
  * and is immutable thereafter.
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public final class TokenHash {
 

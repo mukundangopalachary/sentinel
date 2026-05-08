@@ -8,7 +8,7 @@ package dev.sentinel.domain.shared.exception;
  * represent specific domain error scenarios (validation errors, state violations, permission
  * denials, etc.).
  * 
- * @author Sentinel Team
+ * @author Mukundan Gopalachary
  */
 public class DomainException extends RuntimeException {
 
