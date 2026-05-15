@@ -1,5 +1,6 @@
 package dev.sentinel.domain.application.model;
 
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 import dev.sentinel.domain.shared.exception.ValidationException;
 import dev.sentinel.domain.shared.valueobject.ApplicationKey;
 import org.junit.jupiter.api.Test;
@@ -62,6 +63,16 @@ class ApplicationTest {
     assertFalse(application.isArchived());
     assertTrue(application.isActive());
     assertEquals(restoredAt, application.updatedAt());
+  }
+
+  @Test
+  void shouldRejectInvalidArchiveTransitions() {
+    Application application = createApplication("Payments", "Description");
+    Instant updatedAt = Instant.parse("2026-05-07T10:15:30Z");
+
+    assertThrows(InvalidStateTransitionException.class, () -> application.restore(updatedAt));
+    application.archive(updatedAt);
+    assertThrows(InvalidStateTransitionException.class, () -> application.archive(updatedAt));
   }
 
   @Test

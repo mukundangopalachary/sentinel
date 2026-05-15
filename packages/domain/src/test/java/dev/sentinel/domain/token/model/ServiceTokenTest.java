@@ -1,6 +1,7 @@
 package dev.sentinel.domain.token.model;
 
 import dev.sentinel.domain.shared.enums.TokenStatus;
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 import dev.sentinel.domain.shared.exception.ValidationException;
 import dev.sentinel.domain.shared.valueobject.TokenHash;
 import org.junit.jupiter.api.Test;
@@ -35,6 +36,16 @@ class ServiceTokenTest {
     token.revoke(revokedAt);
     assertEquals(TokenStatus.REVOKED, token.status());
     assertEquals(revokedAt, token.revokedAt());
+  }
+
+  @Test
+  void shouldRejectRevokingAlreadyRevokedToken() {
+    ServiceToken token =
+        createToken("SDK Token", TokenStatus.REVOKED, Instant.parse("2026-05-09T09:15:30Z"));
+
+    assertThrows(
+        InvalidStateTransitionException.class,
+        () -> token.revoke(Instant.parse("2026-05-08T11:15:30Z")));
   }
 
   @Test

@@ -1,5 +1,6 @@
 package dev.sentinel.domain.featureflag.model;
 
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 import dev.sentinel.domain.shared.exception.ValidationException;
 import dev.sentinel.domain.shared.valueobject.FlagKey;
 import org.junit.jupiter.api.Test;
@@ -70,6 +71,17 @@ class FeatureFlagTest {
     assertFalse(featureFlag.enabled());
     assertFalse(featureFlag.isEvaluable());
     assertEquals(disabledAt, featureFlag.updatedAt());
+  }
+
+  @Test
+  void shouldRejectInvalidFeatureFlagTransitions() {
+    FeatureFlag featureFlag = createFeatureFlag("Checkout", "Description", true);
+    Instant updatedAt = Instant.parse("2026-05-07T10:15:30Z");
+
+    assertThrows(InvalidStateTransitionException.class, () -> featureFlag.enable(updatedAt));
+    featureFlag.archive(updatedAt);
+    assertThrows(InvalidStateTransitionException.class, () -> featureFlag.archive(updatedAt));
+    assertThrows(InvalidStateTransitionException.class, () -> featureFlag.enable(updatedAt));
   }
 
   @Test

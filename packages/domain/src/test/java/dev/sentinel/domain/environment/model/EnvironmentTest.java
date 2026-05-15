@@ -1,6 +1,7 @@
 package dev.sentinel.domain.environment.model;
 
 import dev.sentinel.domain.shared.enums.EnvironmentType;
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 import dev.sentinel.domain.shared.exception.ValidationException;
 import dev.sentinel.domain.shared.valueobject.EnvironmentKey;
 import org.junit.jupiter.api.Test;
@@ -49,6 +50,16 @@ class EnvironmentTest {
     environment.unmarkProtected(unprotectedAt);
     assertFalse(environment.isProtected());
     assertEquals(unprotectedAt, environment.updatedAt());
+  }
+
+  @Test
+  void shouldRejectInvalidProtectionTransitions() {
+    Environment environment = createEnvironment("Prod", EnvironmentType.PROD, false);
+    Instant updatedAt = Instant.parse("2026-05-07T10:15:30Z");
+
+    assertThrows(InvalidStateTransitionException.class, () -> environment.unmarkProtected(updatedAt));
+    environment.markProtected(updatedAt);
+    assertThrows(InvalidStateTransitionException.class, () -> environment.markProtected(updatedAt));
   }
 
   @Test

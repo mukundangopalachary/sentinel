@@ -1,5 +1,6 @@
 package dev.sentinel.domain.user.model;
 
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 import dev.sentinel.domain.shared.exception.ValidationException;
 import dev.sentinel.domain.shared.valueobject.Email;
 
@@ -139,6 +140,9 @@ public final class User {
    * @throws NullPointerException if updatedAt is null
    */
   public void activate(Instant updatedAt) {
+    if (active) {
+      throw new InvalidStateTransitionException("User is already active");
+    }
     this.active = true;
     this.updatedAt = requireUpdatedAt(updatedAt);
   }
@@ -150,6 +154,9 @@ public final class User {
    * @throws NullPointerException if updatedAt is null
    */
   public void deactivate(Instant updatedAt) {
+    if (!active) {
+      throw new InvalidStateTransitionException("User is already inactive");
+    }
     this.active = false;
     this.updatedAt = requireUpdatedAt(updatedAt);
   }

@@ -1,5 +1,6 @@
 package dev.sentinel.domain.featureflag.model;
 
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 import dev.sentinel.domain.shared.exception.ValidationException;
 import dev.sentinel.domain.shared.valueobject.FlagKey;
 
@@ -204,6 +205,12 @@ public final class FeatureFlag {
    * @throws NullPointerException if updatedAt is null
    */
   public void enable(Instant updatedAt) {
+    if (archived) {
+      throw new InvalidStateTransitionException("Archived feature flag cannot be enabled");
+    }
+    if (enabled) {
+      throw new InvalidStateTransitionException("Feature flag is already enabled");
+    }
     this.enabled = true;
     this.updatedAt = requireUpdatedAt(updatedAt);
   }
@@ -215,6 +222,9 @@ public final class FeatureFlag {
    * @throws NullPointerException if updatedAt is null
    */
   public void disable(Instant updatedAt) {
+    if (!enabled) {
+      throw new InvalidStateTransitionException("Feature flag is already disabled");
+    }
     this.enabled = false;
     this.updatedAt = requireUpdatedAt(updatedAt);
   }
@@ -226,6 +236,9 @@ public final class FeatureFlag {
    * @throws NullPointerException if updatedAt is null
    */
   public void archive(Instant updatedAt) {
+    if (archived) {
+      throw new InvalidStateTransitionException("Feature flag is already archived");
+    }
     this.archived = true;
     this.updatedAt = requireUpdatedAt(updatedAt);
   }
@@ -237,6 +250,9 @@ public final class FeatureFlag {
    * @throws NullPointerException if updatedAt is null
    */
   public void restore(Instant updatedAt) {
+    if (!archived) {
+      throw new InvalidStateTransitionException("Feature flag is not archived");
+    }
     this.archived = false;
     this.updatedAt = requireUpdatedAt(updatedAt);
   }

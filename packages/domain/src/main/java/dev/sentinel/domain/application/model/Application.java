@@ -1,5 +1,6 @@
 package dev.sentinel.domain.application.model;
 
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 import dev.sentinel.domain.shared.exception.ValidationException;
 import dev.sentinel.domain.shared.valueobject.ApplicationKey;
 
@@ -164,6 +165,9 @@ public final class Application {
    * @throws NullPointerException if updatedAt is null
    */
   public void archive(Instant updatedAt) {
+    if (archived) {
+      throw new InvalidStateTransitionException("Application is already archived");
+    }
     this.archived = true;
     this.updatedAt = requireUpdatedAt(updatedAt);
   }
@@ -175,6 +179,9 @@ public final class Application {
    * @throws NullPointerException if updatedAt is null
    */
   public void restore(Instant updatedAt) {
+    if (!archived) {
+      throw new InvalidStateTransitionException("Application is not archived");
+    }
     this.archived = false;
     this.updatedAt = requireUpdatedAt(updatedAt);
   }

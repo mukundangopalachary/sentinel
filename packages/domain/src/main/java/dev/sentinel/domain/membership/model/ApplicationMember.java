@@ -1,6 +1,7 @@
 package dev.sentinel.domain.membership.model;
 
 import dev.sentinel.domain.shared.enums.MemberStatus;
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 
 import java.time.Instant;
 import java.util.Objects;
@@ -165,6 +166,12 @@ public final class ApplicationMember {
    * @throws NullPointerException if either parameter is null
    */
   public void activate(Instant joinedAt, Instant updatedAt) {
+    if (status == MemberStatus.ACTIVE) {
+      throw new InvalidStateTransitionException("Application member is already active");
+    }
+    if (status == MemberStatus.REMOVED) {
+      throw new InvalidStateTransitionException("Removed application member cannot be activated");
+    }
     this.status = MemberStatus.ACTIVE;
     this.joinedAt = Objects.requireNonNull(joinedAt, "Joined at cannot be null");
     this.updatedAt = requireUpdatedAt(updatedAt);
@@ -177,6 +184,9 @@ public final class ApplicationMember {
    * @throws NullPointerException if updatedAt is null
    */
   public void remove(Instant updatedAt) {
+    if (status == MemberStatus.REMOVED) {
+      throw new InvalidStateTransitionException("Application member is already removed");
+    }
     this.status = MemberStatus.REMOVED;
     this.updatedAt = requireUpdatedAt(updatedAt);
   }

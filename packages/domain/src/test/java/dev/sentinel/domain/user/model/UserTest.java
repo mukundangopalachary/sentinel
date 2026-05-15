@@ -1,5 +1,6 @@
 package dev.sentinel.domain.user.model;
 
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 import dev.sentinel.domain.shared.exception.ValidationException;
 import dev.sentinel.domain.shared.valueobject.Email;
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,16 @@ class UserTest {
     user.deactivate(deactivatedAt);
     assertFalse(user.active());
     assertFalse(user.isEligibleForLogin());
+  }
+
+  @Test
+  void shouldRejectInvalidActivationTransitions() {
+    User activeUser = createUser("User", "hash", true);
+    User inactiveUser = createUser("User", "hash", false);
+    Instant updatedAt = Instant.parse("2026-05-08T10:15:30Z");
+
+    assertThrows(InvalidStateTransitionException.class, () -> activeUser.activate(updatedAt));
+    assertThrows(InvalidStateTransitionException.class, () -> inactiveUser.deactivate(updatedAt));
   }
 
   @Test

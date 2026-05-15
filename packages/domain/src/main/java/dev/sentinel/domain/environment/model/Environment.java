@@ -1,6 +1,7 @@
 package dev.sentinel.domain.environment.model;
 
 import dev.sentinel.domain.shared.enums.EnvironmentType;
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 import dev.sentinel.domain.shared.exception.ValidationException;
 import dev.sentinel.domain.shared.valueobject.EnvironmentKey;
 
@@ -156,6 +157,9 @@ public final class Environment {
    * @throws NullPointerException if updatedAt is null
    */
   public void markProtected(Instant updatedAt) {
+    if (protectedEnvironment) {
+      throw new InvalidStateTransitionException("Environment is already protected");
+    }
     this.protectedEnvironment = true;
     this.updatedAt = requireUpdatedAt(updatedAt);
   }
@@ -167,6 +171,9 @@ public final class Environment {
    * @throws NullPointerException if updatedAt is null
    */
   public void unmarkProtected(Instant updatedAt) {
+    if (!protectedEnvironment) {
+      throw new InvalidStateTransitionException("Environment is not protected");
+    }
     this.protectedEnvironment = false;
     this.updatedAt = requireUpdatedAt(updatedAt);
   }

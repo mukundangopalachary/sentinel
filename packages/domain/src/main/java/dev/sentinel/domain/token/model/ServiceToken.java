@@ -1,6 +1,7 @@
 package dev.sentinel.domain.token.model;
 
 import dev.sentinel.domain.shared.enums.TokenStatus;
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 import dev.sentinel.domain.shared.exception.ValidationException;
 import dev.sentinel.domain.shared.valueobject.TokenHash;
 
@@ -192,6 +193,9 @@ public final class ServiceToken {
    * @throws NullPointerException if revokedAt is null
    */
   public void revoke(Instant revokedAt) {
+    if (status == TokenStatus.REVOKED) {
+      throw new InvalidStateTransitionException("Service token is already revoked");
+    }
     this.status = TokenStatus.REVOKED;
     this.revokedAt = Objects.requireNonNull(revokedAt, "Revoked at cannot be null");
   }

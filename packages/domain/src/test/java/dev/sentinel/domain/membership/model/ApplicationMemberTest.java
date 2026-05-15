@@ -1,6 +1,7 @@
 package dev.sentinel.domain.membership.model;
 
 import dev.sentinel.domain.shared.enums.MemberStatus;
+import dev.sentinel.domain.shared.exception.InvalidStateTransitionException;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
@@ -8,6 +9,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ApplicationMemberTest {
@@ -39,6 +41,17 @@ class ApplicationMemberTest {
     member.remove(removedAt);
     assertEquals(MemberStatus.REMOVED, member.status());
     assertFalse(member.isActive());
+  }
+
+  @Test
+  void shouldRejectInvalidMembershipTransitions() {
+    ApplicationMember activeMember = createMember(MemberStatus.ACTIVE);
+    ApplicationMember removedMember = createMember(MemberStatus.REMOVED);
+    Instant updatedAt = Instant.parse("2026-05-08T10:15:30Z");
+
+    assertThrows(InvalidStateTransitionException.class, () -> activeMember.activate(updatedAt, updatedAt));
+    assertThrows(InvalidStateTransitionException.class, () -> removedMember.activate(updatedAt, updatedAt));
+    assertThrows(InvalidStateTransitionException.class, () -> removedMember.remove(updatedAt));
   }
 
   private static ApplicationMember createMember(MemberStatus status) {
