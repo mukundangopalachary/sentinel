@@ -8,6 +8,7 @@ import dev.sentinel.domain.shared.valueobject.FlagKey;
 import dev.sentinel.domain.shared.valueobject.UserIdentifier;
 import dev.sentinel.evaluator.config.RuleConfigParser;
 import dev.sentinel.evaluator.model.EvaluationRequest;
+import dev.sentinel.evaluator.model.EvaluationReason;
 import dev.sentinel.evaluator.model.EvaluationResult;
 import dev.sentinel.evaluator.rollout.RolloutCalculator;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class PercentageRolloutEvaluatorTest {
         evaluator.evaluate(createRequest(), createRule("{ \"percentage\": 100 }"));
 
     assertTrue(result.enabled());
-    assertEquals("percentage_rollout", result.reason());
+    assertEquals(EvaluationReason.PERCENTAGE_ROLLOUT, result.reason());
   }
 
   @Test

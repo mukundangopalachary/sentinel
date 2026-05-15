@@ -8,6 +8,7 @@ import dev.sentinel.domain.shared.valueobject.FlagKey;
 import dev.sentinel.domain.shared.valueobject.UserIdentifier;
 import dev.sentinel.evaluator.config.RuleConfigParser;
 import dev.sentinel.evaluator.model.EvaluationRequest;
+import dev.sentinel.evaluator.model.EvaluationReason;
 import dev.sentinel.evaluator.model.EvaluationResult;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +32,7 @@ class UserTargetRuleEvaluatorTest {
             createRule("{ \"includedUserIds\": [\"user-123\", \"user-456\"] }"));
 
     assertTrue(result.enabled());
-    assertEquals("user_target", result.reason());
+    assertEquals(EvaluationReason.USER_TARGET, result.reason());
   }
 
   @Test

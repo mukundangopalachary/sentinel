@@ -3,6 +3,7 @@ package dev.sentinel.evaluator.core;
 import dev.sentinel.domain.rule.model.FlagRule;
 import dev.sentinel.evaluator.config.RuleConfigParser;
 import dev.sentinel.evaluator.model.EvaluationRequest;
+import dev.sentinel.evaluator.model.EvaluationReason;
 import dev.sentinel.evaluator.model.EvaluationResult;
 import dev.sentinel.evaluator.model.FlagConfigSnapshot;
 import dev.sentinel.evaluator.rule.GlobalRuleEvaluator;
@@ -82,12 +83,12 @@ public final class FeatureFlagEvaluator {
     request.validateRequiredFields();
 
     if (!snapshot.isUsable()) {
-      return buildResult(request, false, "fallback_disabled", null);
+      return buildResult(request, false, EvaluationReason.FALLBACK_DISABLED, null);
     }
 
     List<FlagRule> rules = snapshot.findRulesByPriority();
     if (rules.isEmpty()) {
-      return buildResult(request, true, "flag_enabled", null);
+      return buildResult(request, true, EvaluationReason.FLAG_ENABLED, null);
     }
 
     for (FlagRule rule : rules) {
@@ -101,7 +102,7 @@ public final class FeatureFlagEvaluator {
       }
     }
 
-    return buildResult(request, false, "no_matching_rule", null);
+    return buildResult(request, false, EvaluationReason.NO_MATCHING_RULE, null);
   }
 
   /**
@@ -132,7 +133,7 @@ public final class FeatureFlagEvaluator {
    * @return a new EvaluationResult with the current timestamp
    */
   private EvaluationResult buildResult(
-      EvaluationRequest request, boolean enabled, String reason, UUID matchedRuleId) {
+      EvaluationRequest request, boolean enabled, EvaluationReason reason, UUID matchedRuleId) {
     return new EvaluationResult(
         request.flagKey(),
         enabled,

@@ -5,6 +5,7 @@ import dev.sentinel.domain.shared.enums.RuleType;
 import dev.sentinel.evaluator.config.GlobalRuleConfig;
 import dev.sentinel.evaluator.config.RuleConfigParser;
 import dev.sentinel.evaluator.model.EvaluationRequest;
+import dev.sentinel.evaluator.model.EvaluationReason;
 import dev.sentinel.evaluator.model.EvaluationResult;
 
 import java.time.Instant;
@@ -60,7 +61,8 @@ public final class GlobalRuleEvaluator implements RuleEvaluator {
     }
 
     boolean enabled = config.get().enabled();
-    String reason = enabled ? "global_enabled" : "global_disabled";
+    EvaluationReason reason =
+        enabled ? EvaluationReason.GLOBAL_ENABLED : EvaluationReason.GLOBAL_DISABLED;
     return buildResult(request, enabled, reason, rule.id());
   }
 
@@ -74,7 +76,7 @@ public final class GlobalRuleEvaluator implements RuleEvaluator {
    * @return a new EvaluationResult with the current timestamp
    */
   private EvaluationResult buildResult(
-      EvaluationRequest request, boolean enabled, String reason, UUID matchedRuleId) {
+      EvaluationRequest request, boolean enabled, EvaluationReason reason, UUID matchedRuleId) {
     return new EvaluationResult(
         request.flagKey(),
         enabled,

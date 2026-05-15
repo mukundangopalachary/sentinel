@@ -5,6 +5,7 @@ import dev.sentinel.domain.shared.enums.RuleType;
 import dev.sentinel.evaluator.config.PercentageRolloutRuleConfig;
 import dev.sentinel.evaluator.config.RuleConfigParser;
 import dev.sentinel.evaluator.model.EvaluationRequest;
+import dev.sentinel.evaluator.model.EvaluationReason;
 import dev.sentinel.evaluator.model.EvaluationResult;
 import dev.sentinel.evaluator.rollout.RolloutCalculator;
 
@@ -73,7 +74,7 @@ public final class PercentageRolloutEvaluator implements RuleEvaluator {
       return null;
     }
 
-    return buildResult(request, true, "percentage_rollout", rule.id());
+    return buildResult(request, true, EvaluationReason.PERCENTAGE_ROLLOUT, rule.id());
   }
 
   /**
@@ -86,7 +87,7 @@ public final class PercentageRolloutEvaluator implements RuleEvaluator {
    * @return a new EvaluationResult with the current timestamp
    */
   private EvaluationResult buildResult(
-      EvaluationRequest request, boolean enabled, String reason, UUID matchedRuleId) {
+      EvaluationRequest request, boolean enabled, EvaluationReason reason, UUID matchedRuleId) {
     return new EvaluationResult(
         request.flagKey(),
         enabled,

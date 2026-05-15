@@ -7,6 +7,7 @@ import dev.sentinel.domain.shared.valueobject.EnvironmentKey;
 import dev.sentinel.domain.shared.valueobject.FlagKey;
 import dev.sentinel.domain.shared.valueobject.UserIdentifier;
 import dev.sentinel.evaluator.model.EvaluationRequest;
+import dev.sentinel.evaluator.model.EvaluationReason;
 import dev.sentinel.evaluator.model.EvaluationResult;
 import dev.sentinel.evaluator.model.FlagConfigSnapshot;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ class FeatureFlagEvaluatorTest {
 
     assertFalse(result.enabled());
     assertTrue(result.isFallback());
-    assertEquals("fallback_disabled", result.reason());
+    assertEquals(EvaluationReason.FALLBACK_DISABLED, result.reason());
   }
 
   @Test
@@ -43,7 +44,7 @@ class FeatureFlagEvaluatorTest {
 
     assertTrue(result.enabled());
     assertFalse(result.isFallback());
-    assertEquals("flag_enabled", result.reason());
+    assertEquals(EvaluationReason.FLAG_ENABLED, result.reason());
     assertNull(result.matchedRuleId());
   }
 
@@ -56,7 +57,7 @@ class FeatureFlagEvaluatorTest {
         evaluator.evaluate(createRequest(), createSnapshot(true, false, List.of(globalDisable)));
 
     assertFalse(result.enabled());
-    assertEquals("global_disabled", result.reason());
+    assertEquals(EvaluationReason.GLOBAL_DISABLED, result.reason());
     assertEquals(globalDisable.id(), result.matchedRuleId());
   }
 
@@ -74,7 +75,7 @@ class FeatureFlagEvaluatorTest {
         evaluator.evaluate(createRequest(), createSnapshot(true, false, List.of(userTarget)));
 
     assertTrue(result.enabled());
-    assertEquals("user_target", result.reason());
+    assertEquals(EvaluationReason.USER_TARGET, result.reason());
     assertEquals(userTarget.id(), result.matchedRuleId());
   }
 
@@ -90,7 +91,7 @@ class FeatureFlagEvaluatorTest {
             createSnapshot(true, false, List.of(laterEnable, earlierDisable)));
 
     assertFalse(result.enabled());
-    assertEquals("global_disabled", result.reason());
+    assertEquals(EvaluationReason.GLOBAL_DISABLED, result.reason());
     assertEquals(earlierDisable.id(), result.matchedRuleId());
   }
 
@@ -108,7 +109,7 @@ class FeatureFlagEvaluatorTest {
         evaluator.evaluate(createRequest(), createSnapshot(true, false, List.of(userTarget)));
 
     assertFalse(result.enabled());
-    assertEquals("no_matching_rule", result.reason());
+    assertEquals(EvaluationReason.NO_MATCHING_RULE, result.reason());
     assertNull(result.matchedRuleId());
   }
 
@@ -122,7 +123,7 @@ class FeatureFlagEvaluatorTest {
         evaluator.evaluate(createRequest(), createSnapshot(true, false, List.of(percentageRule)));
 
     assertTrue(result.enabled());
-    assertEquals("percentage_rollout", result.reason());
+    assertEquals(EvaluationReason.PERCENTAGE_ROLLOUT, result.reason());
     assertNotNull(result.matchedRuleId());
   }
 

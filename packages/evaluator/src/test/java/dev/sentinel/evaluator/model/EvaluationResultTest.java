@@ -18,14 +18,14 @@ class EvaluationResultTest {
         new EvaluationResult(
             new FlagKey("new-checkout"),
             true,
-            "flag_enabled",
+            EvaluationReason.FLAG_ENABLED,
             UUID.randomUUID(),
             Instant.parse("2026-05-07T10:15:30Z"));
 
     assertTrue(result.enabled());
     assertTrue(result.isPositive());
     assertFalse(result.isFallback());
-    assertEquals("flag_enabled", result.reason());
+    assertEquals(EvaluationReason.FLAG_ENABLED, result.reason());
   }
 
   @Test
@@ -34,7 +34,7 @@ class EvaluationResultTest {
         new EvaluationResult(
             new FlagKey("new-checkout"),
             false,
-            "fallback_disabled",
+            EvaluationReason.FALLBACK_DISABLED,
             null,
             Instant.parse("2026-05-07T10:15:30Z"));
 

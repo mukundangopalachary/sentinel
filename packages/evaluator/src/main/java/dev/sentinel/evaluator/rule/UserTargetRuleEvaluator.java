@@ -5,6 +5,7 @@ import dev.sentinel.domain.shared.enums.RuleType;
 import dev.sentinel.evaluator.config.RuleConfigParser;
 import dev.sentinel.evaluator.config.UserTargetRuleConfig;
 import dev.sentinel.evaluator.model.EvaluationRequest;
+import dev.sentinel.evaluator.model.EvaluationReason;
 import dev.sentinel.evaluator.model.EvaluationResult;
 
 import java.time.Instant;
@@ -64,7 +65,7 @@ public final class UserTargetRuleEvaluator implements RuleEvaluator {
     String userId = request.userIdentifier().value();
     for (String includedUserId : config.get().includedUserIds()) {
       if (userId.equals(includedUserId)) {
-        return buildResult(request, true, "user_target", rule.id());
+        return buildResult(request, true, EvaluationReason.USER_TARGET, rule.id());
       }
     }
 
@@ -81,7 +82,7 @@ public final class UserTargetRuleEvaluator implements RuleEvaluator {
    * @return a new EvaluationResult with the current timestamp
    */
   private EvaluationResult buildResult(
-      EvaluationRequest request, boolean enabled, String reason, UUID matchedRuleId) {
+      EvaluationRequest request, boolean enabled, EvaluationReason reason, UUID matchedRuleId) {
     return new EvaluationResult(
         request.flagKey(),
         enabled,

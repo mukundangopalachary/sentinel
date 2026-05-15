@@ -19,7 +19,7 @@ public final class EvaluationResult {
 
   private final FlagKey flagKey;
   private final boolean enabled;
-  private final String reason;
+  private final EvaluationReason reason;
   private final UUID matchedRuleId;
   private final Instant evaluatedAt;
 
@@ -36,7 +36,7 @@ public final class EvaluationResult {
   public EvaluationResult(
       FlagKey flagKey,
       boolean enabled,
-      String reason,
+      EvaluationReason reason,
       UUID matchedRuleId,
       Instant evaluatedAt) {
     this.flagKey = Objects.requireNonNull(flagKey, "Flag key cannot be null");
@@ -72,7 +72,7 @@ public final class EvaluationResult {
    * 
    * @return the descriptive reason string
    */
-  public String reason() {
+  public EvaluationReason reason() {
     return reason;
   }
 
@@ -111,6 +111,6 @@ public final class EvaluationResult {
    * @return true if the reason is "fallback_disabled", false otherwise
    */
   public boolean isFallback() {
-    return "fallback_disabled".equals(reason);
+    return reason == EvaluationReason.FALLBACK_DISABLED;
   }
 }

@@ -8,6 +8,7 @@ import dev.sentinel.domain.shared.valueobject.EnvironmentKey;
 import dev.sentinel.domain.shared.valueobject.FlagKey;
 import dev.sentinel.domain.shared.valueobject.UserIdentifier;
 import dev.sentinel.evaluator.model.EvaluationRequest;
+import dev.sentinel.evaluator.model.EvaluationReason;
 import dev.sentinel.evaluator.model.EvaluationResult;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ class GlobalRuleEvaluatorTest {
     EvaluationResult result = evaluator.evaluate(createRequest(), createRule("{ \"enabled\": true }"));
 
     assertTrue(result.enabled());
-    assertEquals("global_enabled", result.reason());
+    assertEquals(EvaluationReason.GLOBAL_ENABLED, result.reason());
   }
 
   @Test
@@ -39,7 +40,7 @@ class GlobalRuleEvaluatorTest {
     EvaluationResult result = evaluator.evaluate(createRequest(), createRule("{ \"enabled\": false }"));
 
     assertFalse(result.enabled());
-    assertEquals("global_disabled", result.reason());
+    assertEquals(EvaluationReason.GLOBAL_DISABLED, result.reason());
   }
 
   @Test
